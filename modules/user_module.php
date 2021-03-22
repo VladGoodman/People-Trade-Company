@@ -11,7 +11,19 @@
             $this->role =  $_SESSION['role']?$_SESSION['role']:'';
         }
 
-        
+        private function checkExistingLogin($login){
+            global $mysql;
+            $query = "SELECT role FROM `user` WHERE login='$login'";
+            $result = mysqli_query($mysql, $query);
+            if($result){
+                if(mysqli_fetch_row($result)){
+                    return 'Пользователь с таким login уже существует';
+                }else{
+                    return true;
+                }
+            }
+            
+        }
 
         public function getRole(){
             return (int) $this->role;
@@ -21,44 +33,30 @@
             return $this->login;
         }
 
-
-
         public function auth($login, $password){
             global $mysql;
-            $query = "SELECT role, login FROM `user` WHERE login='$login' AND password='$password'";
+            $query = "SELECT login, role FROM `user` WHERE login='$login' AND password='$password'";
             $result = mysqli_query($mysql, $query);
-            if($row = mysqli_fetch_assoc($result)){
-                $_SESSION['role'] = $row['role'];
-                $_SESSION['login'] = $row['login'];
-                return true;
-            }else{
-                return 'Неправильный логин или пароль';
-            }
-        }
 
-        public function getUserOrders($email){
-            global $mysql;
-            $query = "SELECT * FROM `orders` WHERE user='$email'";
-            $result = mysqli_query($mysql, $query);
-            if($result){
-                $result_array = [];
-                while($row = mysqli_fetch_assoc($result)){
-                    $result_array[] = $row;
+            if ($result != 0){
+                if($row = mysqli_fetch_assoc($result)){
+                    $_SESSION['role'] = $row['role'];
+                    $_SESSION['login'] = $row['login'];
+                    return true;
+                }else{
+                    return 'Неправильный логин или пароль';
                 }
-                return $result_array;
             }else{
                 return false;
             }
-            
         }
 
-
-        public function registration($fio, $email, $password){
+        public function registration($login, $password){
             global $mysql;
-            if($this->checkExistingEmail($email) !== true){
-                return $this->checkExistingEmail($email);
+            if($this->checkExistingLogin($login) !== true){
+                return $this->checkExistingLogin($login);
             }else{
-                $query = "INSERT INTO `user`(`fio`, `password`, `email`) VALUES ('$fio', '$password', '$email')";
+                $query = "INSERT INTO `user`(`login`, `password`) VALUES ('$login', '$password')";
                 $result = mysqli_query($mysql, $query);
                 if($result == 'TRUE'){
                     return true;
