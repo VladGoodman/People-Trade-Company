@@ -5,17 +5,15 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
-<header>
     <div class="container">
-        <div class="header">
+        <div class="d-flex justify-content-between py-3">
             <div class="header__left">
-                <a href="index.php">Главная</a>
+                <a href="index.php">Народная торговая компания</a>
             </div>
             <div class="header__right">
                 <?php
                     if($user->getLogin()){
                         echo '
-                        <a href="profile.php">Ваш профиль</a>
                         <a href="?logout">Выход</a>';
                     }else{
                         echo '
@@ -25,5 +23,3 @@
                 ?>
             </div>
         </div>
-    </div>
-</header>

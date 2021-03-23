@@ -1,17 +1,6 @@
-<?php 
-    print_r($_POST);
-    print_r($_SESSION);
-    require 'modules/order_module.php';
 
-if(isset($_POST['name_tech'])){
-  Order::addOrder($_POST['name_tech'], $_POST['description'], $_POST['client_login'], $_POST['date_completion']);
-}
-
-?>
-<h3>Профиль работника</h3>
-
-<p>Оформление заказа</p>
-
+<p class="text-center fs-3 fw-bolder">Оформление заказа</p>
+<?= $form_error ?>
 <form method="POST">
   <div class="mb-3">
     <label for="exampleInputName" class="form-label">Название техники:</label>
@@ -31,6 +20,3 @@ if(isset($_POST['name_tech'])){
   </div>
   <button type="submit" class="btn btn-primary">Создать заказ</button>
 </form>
-
-    <p>Список ремонта по гарантии:</p>
-

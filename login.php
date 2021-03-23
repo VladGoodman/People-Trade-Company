@@ -16,14 +16,16 @@ if(empty($user->getLogin())){
     echo '
     <div class="container">
         <form method="post">
-            <label >Login
-                <input type="text" name="login" value="admin" >
-            </label><br>
-            <label >Password 
-                <input type="text" name="password" value="admin" >
-            </label><br>
-            <button type="submit">Войти</button>
-            <p>'.$login_info.'</p>
+            <div class="mb-3">
+                <label class="form-label">Login</label>
+                <input class="form-control" type="text" name="login">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password </label>
+                <input class="form-control" type="password" name="password">
+            </div>
+            <p class="my-3 bg-warning text-dark">'.$login_info.'</p>
+            <button class="btn btn-primary" type="submit">Войти</button>
         </form> 
     </div>
         ';
