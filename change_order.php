@@ -30,15 +30,16 @@
         echo '<h3>Дата оформления: '.$order['date_issue'].'</h3>';
         echo '<h3>Дата завершения ремонта: '.$order['date_completion'].'</h3>';
         echo '<h3>Статус: '.Order::nameStatusOrder($order['status']).'</h3>';
+        echo '<form method="post">
+            <button class="btn btn-success" type="submit" name="change_status">Изменить статус</button>
+            <button class="btn btn-success" type="submit" name="change_date">Изменить дату завершения</button>
+            <button class="btn btn-success" type="submit" name="delete_order" value="'.$order['id'].'">Удалить</button>
+            </form>';
     }else{
         echo 'Вам недоступна эта страница';
     }
 ?>
-<form method="post">
-    <button class="btn btn-success" type="submit" name="change_status">Изменить статус</button>
-    <button class="btn btn-success" type="submit" name="change_date">Изменить дату завершения</button>
-    <button class="btn btn-success" type="submit" name="delete_order" value="<?= $order['id'] ?>">Удалить</button>
-</form>
+
 
 <?php
     if(isset($_POST['change_status'])){
@@ -58,5 +59,4 @@
             <button class="btn btn-success" type="submit">Сохранить</button>
         </form>';
     }
-    
 ?>
